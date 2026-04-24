@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PulseCare | Doctor Appointment App MVP</title>
+  <meta
+    name="description"
+    content="PulseCare is a full stack doctor appointment MVP for patients, doctors, and admins."
+  >
+  <script>
+    document.documentElement.classList.add("js");
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Manrope:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  >
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="shell">
+    <header class="topbar">
+      <a class="brand" href="#top">
+        <span class="brand-badge">PC</span>
+        <span>
+          <strong>PulseCare</strong>
+          <small>Doctor Appointment MVP</small>
+        </span>
+      </a>
+
+      <nav class="topnav">
+        <a href="#auth">Access</a>
+        <a href="#patient">Patient</a>
+        <a href="#doctor">Doctor</a>
+        <a href="#admin">Admin</a>
+        <a href="#docs">API Docs</a>
+      </nav>
+
+      <span class="status-chip" id="health-status">Checking backend</span>
+    </header>
+
+    <main id="top">
+      <section class="hero">
+        <div class="hero-copy reveal">
+          <p class="eyebrow">HEALTHCARE BOOKING PLATFORM</p>
+          <h1>Search doctors, manage slots, and run clinic operations from one full stack prototype.</h1>
+          <p class="hero-text">
+            This MVP translates your PRD into a working web app with patient booking, doctor scheduling,
+            admin verification, payment states, reviews, reminders, and API documentation.
+          </p>
+
+          <div class="hero-actions">
+            <a class="button button-primary" href="#patient">Try Patient Booking</a>
+            <a class="button button-secondary" href="#doctor">Open Doctor Workspace</a>
+          </div>
+
+          <div class="hero-credentials">
+            <article>
+              <span>Patient Demo</span>
+              <strong>patient@pulsecare.app</strong>
+              <small>patient12345</small>
+            </article>
+            <article>
+              <span>Doctor Demo</span>
+              <strong>doctor@pulsecare.app</strong>
+              <small>doctor12345</small>
+            </article>
+            <article>
+              <span>Admin Demo</span>
+              <strong>admin@pulsecare.app</strong>
+              <small>admin12345</small>
+            </article>
+          </div>
+        </div>
+
+        <div class="hero-panel reveal">
+          <article class="feature-surface">
+            <div class="surface-heading">
+              <p>Live MVP Coverage</p>
+              <span id="session-badge">Guest session</span>
+            </div>
+
+            <div class="surface-metrics" id="hero-metrics">
+              <div class="metric-card">
+                <span>Users</span>
+                <strong>0</strong>
+              </div>
+              <div class="metric-card">
+                <span>Doctors</span>
+                <strong>0</strong>
+              </div>
+              <div class="metric-card">
+                <span>Appointments</span>
+                <strong>0</strong>
+              </div>
+              <div class="metric-card">
+                <span>Revenue</span>
+                <strong>INR 0</strong>
+              </div>
+            </div>
+
+            <div class="surface-track">
+              <div class="track-labels">
+                <span>Patient flow</span>
+                <span>Doctor flow</span>
+                <span>Admin flow</span>
+              </div>
+              <div class="track-bars">
+                <span class="bar bar-a"></span>
+                <span class="bar bar-b"></span>
+                <span class="bar bar-c"></span>
+              </div>
+            </div>
+
+            <div class="surface-notes">
+              <p>Booking + reschedule + cancel</p>
+              <p>Slot creation + status updates</p>
+              <p>Verification + reporting + broadcast</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section-grid" id="auth">
+        <article class="card reveal">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">AUTH</p>
+              <h2>Login with seeded roles or create a new account</h2>
+            </div>
+            <span class="status-chip subtle" id="role-visibility-copy">Browse mode enabled</span>
+          </div>
+
+          <div class="auth-layout">
+            <form class="stack-form" id="login-form">
+              <h3>Login</h3>
+              <label class="field">
+                <span>Email</span>
+                <input id="login-email" type="email" placeholder="patient@pulsecare.app" required>
+              </label>
+              <label class="field">
+                <span>Password</span>
+                <input id="login-password" type="password" placeholder="patient12345" required>
+              </label>
+              <div class="button-row">
+                <button class="button button-primary" type="submit">Login</button>
+                <button class="button button-ghost" type="button" id="logout-button">Logout</button>
+              </div>
+              <p class="feedback" id="auth-message">Use a demo account or sign up below.</p>
+            </form>
+
+            <form class="stack-form" id="register-form">
+              <h3>Register</h3>
+              <div class="inline-grid">
+                <label class="field">
+                  <span>Name</span>
+                  <input id="register-name" type="text" placeholder="Aditi Rao" required>
+                </label>
+                <label class="field">
+                  <span>Phone</span>
+                  <input id="register-phone" type="text" placeholder="+91-9876543210" required>
+                </label>
+                <label class="field">
+                  <span>Email</span>
+                  <input id="register-email" type="email" placeholder="you@example.com" required>
+                </label>
+                <label class="field">
+                  <span>Password</span>
+                  <input id="register-password" type="password" placeholder="Choose a password" required>
+                </label>
+                <label class="field">
+                  <span>Role</span>
+                  <select id="register-role">
+                    <option value="patient">Patient</option>
+                    <option value="doctor">Doctor</option>
+                  </select>
+                </label>
+                <label class="field doctor-only">
+                  <span>Speciality</span>
+                  <input id="register-speciality" type="text" placeholder="Cardiologist">
+                </label>
+                <label class="field doctor-only">
+                  <span>Location</span>
+                  <input id="register-location" type="text" placeholder="Delhi">
+                </label>
+                <label class="field doctor-only">
+                  <span>Fees</span>
+                  <input id="register-fees" type="number" min="0" placeholder="800">
+                </label>
+              </div>
+              <button class="button button-secondary" type="submit">Create Account</button>
+              <p class="feedback" id="register-message">Doctors are created as pending verification by default.</p>
+            </form>
+          </div>
+
+          <div class="quick-actions">
+            <button class="button button-ghost" type="button" id="demo-patient">Demo Patient Login</button>
+            <button class="button button-ghost" type="button" id="demo-doctor">Demo Doctor Login</button>
+            <button class="button button-ghost" type="button" id="demo-admin">Demo Admin Login</button>
+          </div>
+        </article>
+
+        <article class="card reveal">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">SESSION</p>
+              <h2>Current access and role summary</h2>
+            </div>
+          </div>
+
+          <div class="summary-grid">
+            <article class="summary-tile">
+              <span>Name</span>
+              <strong id="session-name">Guest</strong>
+            </article>
+            <article class="summary-tile">
+              <span>Role</span>
+              <strong id="session-role">None</strong>
+            </article>
+            <article class="summary-tile">
+              <span>Email</span>
+              <strong id="session-email">Not logged in</strong>
+            </article>
+          </div>
+
+          <div class="callout">
+            <p>
+              Patients can book, cancel, reschedule, and review. Doctors can update profiles, set slots,
+              and change visit status. Admin can verify doctors, add specialities, monitor revenue, and broadcast alerts.
+            </p>
+          </div>
+        </article>
+      </section>
+
+      <section class="workspace" id="patient">
+        <div class="section-head reveal">
+          <div>
+            <p class="eyebrow">PATIENT WORKSPACE</p>
+            <h2>Search doctors, inspect profiles, and book or reschedule a slot</h2>
+          </div>
+          <span class="status-chip accent" id="slot-selection-note">No slot selected</span>
+        </div>
+
+        <div class="workspace-grid">
+          <article class="card reveal">
+            <form class="stack-form" id="doctor-search-form">
+              <div class="inline-grid">
+                <label class="field">
+                  <span>Speciality</span>
+                  <select id="filter-speciality">
+                    <option value="">All specialities</option>
+                  </select>
+                </label>
+                <label class="field">
+                  <span>City</span>
+                  <input id="filter-city" type="text" placeholder="Bengaluru">
+                </label>
+                <label class="field">
+                  <span>Date</span>
+                  <input id="filter-date" type="date">
+                </label>
+                <label class="field">
+                  <span>Search</span>
+                  <input id="doctor-search" type="text" placeholder="doctor name or clinic">
+                </label>
+              </div>
+              <button class="button button-primary" type="submit">Search Doctors</button>
+            </form>
+
+            <div class="doctor-list" id="doctor-results"></div>
+          </article>
+
+          <article class="card reveal">
+            <div class="detail-pane" id="selected-doctor">
+              <p class="empty-state">Choose a doctor card to view profile, reviews, and available slots.</p>
+            </div>
+
+            <div class="reschedule-banner hidden" id="reschedule-banner">
+              <div>
+                <strong>Reschedule mode active</strong>
+                <p id="reschedule-copy">Pick a replacement slot from the selected doctor.</p>
+              </div>
+              <button class="button button-ghost" type="button" id="clear-reschedule-button">Clear</button>
+            </div>
+
+            <form class="stack-form booking-form" id="booking-form">
+              <label class="field">
+                <span>Visit reason</span>
+                <textarea id="booking-reason" rows="3" placeholder="Routine check-up or follow-up"></textarea>
+              </label>
+              <label class="field">
+                <span>Payment method</span>
+                <select id="booking-payment">
+                  <option value="online">Online payment</option>
+                  <option value="cash">Cash at clinic</option>
+                </select>
+              </label>
+              <button class="button button-secondary" type="submit" id="book-slot-button">Book Selected Slot</button>
+              <p class="feedback" id="booking-message">Patient login is required to confirm or reschedule an appointment.</p>
+            </form>
+          </article>
+        </div>
+
+        <div class="workspace-grid narrow-top">
+          <article class="card reveal">
+            <div class="section-head compact">
+              <div>
+                <p class="eyebrow">MY APPOINTMENTS</p>
+                <h3>History, status, cancellation, and reschedule trigger</h3>
+              </div>
+            </div>
+
+            <div class="appointment-list" id="appointment-list">
+              <p class="empty-state">Login as a patient to load appointments.</p>
+            </div>
+            <p class="feedback" id="appointment-message">Completed appointments can be reviewed once.</p>
+          </article>
+
+          <article class="card reveal">
+            <div class="section-head compact">
+              <div>
+                <p class="eyebrow">REVIEWS & REMINDERS</p>
+                <h3>Patient feedback and notifications</h3>
+              </div>
+            </div>
+
+            <form class="stack-form" id="review-form">
+              <label class="field">
+                <span>Appointment</span>
+                <input id="review-appointment-id" type="text" placeholder="Click 'Review' on a completed visit" readonly>
+              </label>
+              <label class="field">
+                <span>Rating</span>
+                <select id="review-rating">
+                  <option value="5">5</option>
+                  <option value="4">4</option>
+                  <option value="3">3</option>
+                  <option value="2">2</option>
+                  <option value="1">1</option>
+                </select>
+              </label>
+              <label class="field">
+                <span>Comment</span>
+                <textarea id="review-comment" rows="4" placeholder="Share your consultation experience"></textarea>
+              </label>
+              <button class="button button-primary" type="submit">Submit Review</button>
+              <p class="feedback" id="review-message">Choose a completed appointment first.</p>
+            </form>
+
+            <div class="notification-list" id="notification-list">
+              <p class="empty-state">Notifications will appear here after login.</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="workspace hidden" id="doctor">
+        <div class="section-head reveal">
+          <div>
+            <p class="eyebrow">DOCTOR WORKSPACE</p>
+            <h2>Manage profile, publish slots, update appointment status, and view patient history</h2>
+          </div>
+        </div>
+
+        <div class="workspace-grid">
+          <article class="card reveal">
+            <form class="stack-form" id="doctor-profile-form">
+              <div class="inline-grid">
+                <label class="field">
+                  <span>Speciality</span>
+                  <input id="doctor-speciality" type="text" required>
+                </label>
+                <label class="field">
+                  <span>Qualification</span>
+                  <input id="doctor-qualification" type="text" required>
+                </label>
+                <label class="field">
+                  <span>Experience</span>
+                  <input id="doctor-experience" type="number" min="0" required>
+                </label>
+                <label class="field">
+                  <span>Fees</span>
+                  <input id="doctor-fees" type="number" min="0" required>
+                </label>
+                <label class="field">
+                  <span>Location</span>
+                  <input id="doctor-location" type="text" required>
+                </label>
+                <label class="field">
+                  <span>Clinic Name</span>
+                  <input id="doctor-clinic-name" type="text" required>
+                </label>
+              </div>
+              <label class="field">
+                <span>About</span>
+                <textarea id="doctor-about" rows="4"></textarea>
+              </label>
+              <label class="field">
+                <span>Languages</span>
+                <input id="doctor-languages" type="text" placeholder="Hindi, English">
+              </label>
+              <button class="button button-primary" type="submit">Save Doctor Profile</button>
+              <p class="feedback" id="doctor-profile-message">Doctor profile loads after doctor login.</p>
+            </form>
+          </article>
+
+          <article class="card reveal">
+            <div class="section-head compact">
+              <div>
+                <p class="eyebrow">DOCTOR DASHBOARD</p>
+                <h3>Appointments and earnings snapshot</h3>
+              </div>
+            </div>
+            <div class="summary-grid" id="doctor-dashboard">
+              <article class="summary-tile">
+                <span>Appointments</span>
+                <strong>0</strong>
+              </article>
+            </div>
+
+            <form class="stack-form" id="doctor-slot-form">
+              <div class="inline-grid">
+                <label class="field">
+                  <span>Date</span>
+                  <input id="doctor-slot-date" type="date" required>
+                </label>
+                <label class="field">
+                  <span>Start</span>
+                  <input id="doctor-slot-start" type="time" required>
+                </label>
+                <label class="field">
+                  <span>End</span>
+                  <input id="doctor-slot-end" type="time" required>
+                </label>
+                <label class="field">
+                  <span>Duration</span>
+                  <select id="doctor-slot-duration">
+                    <option value="30">30 minutes</option>
+                    <option value="60">60 minutes</option>
+                  </select>
+                </label>
+              </div>
+              <label class="checkbox-row">
+                <input id="doctor-slot-closed" type="checkbox">
+                <span>Mark this slot as break / closed</span>
+              </label>
+              <button class="button button-secondary" type="submit">Create Slot</button>
+              <p class="feedback" id="doctor-slot-message">Add daily or weekly availability here.</p>
+            </form>
+          </article>
+        </div>
+
+        <div class="workspace-grid narrow-top">
+          <article class="card reveal">
+            <div class="section-head compact">
+              <div>
+                <p class="eyebrow">SLOT LIST</p>
+                <h3>Update unbooked slots and breaks</h3>
+              </div>
+            </div>
+            <div class="stack-list" id="doctor-slot-list">
+              <p class="empty-state">Doctor slots will appear here.</p>
+            </div>
+          </article>
+
+          <article class="card reveal">
+            <div class="section-head compact">
+              <div>
+                <p class="eyebrow">APPOINTMENTS</p>
+                <h3>Change status and inspect patient history</h3>
+              </div>
+            </div>
+            <div class="stack-list" id="doctor-appointment-list">
+              <p class="empty-state">Doctor appointments will appear here.</p>
+            </div>
+            <p class="feedback" id="doctor-appointment-message">Use patient history only for patients linked to this doctor.</p>
+          </article>
+        </div>
+
+        <article class="card reveal narrow-top">
+          <div class="section-head compact">
+            <div>
+              <p class="eyebrow">PATIENT HISTORY</p>
+              <h3>Scoped medical context for this doctor's own patients</h3>
+            </div>
+          </div>
+          <div class="detail-pane" id="doctor-history">
+            <p class="empty-state">Click "Patient History" from a doctor appointment card.</p>
+          </div>
+        </article>
+      </section>
+
+      <section class="workspace hidden" id="admin">
+        <div class="section-head reveal">
+          <div>
+            <p class="eyebrow">ADMIN PANEL</p>
+            <h2>Verify doctors, monitor users, track payments, and broadcast updates</h2>
+          </div>
+        </div>
+
+        <div class="workspace-grid">
+          <article class="card reveal">
+            <div class="section-head compact">
+              <div>
+                <p class="eyebrow">REPORTS</p>
+                <h3>Live platform metrics</h3>
+              </div>
+            </div>
+            <div class="summary-grid" id="admin-report-grid">
+              <article class="summary-tile">
+                <span>Total Users</span>
+                <strong>0</strong>
+              </article>
+            </div>
+            <div class="stack-list" id="admin-activity-list">
+              <p class="empty-state">Recent activity will appear here.</p>
+            </div>
+          </article>
+
+          <article class="card reveal">
+            <form class="stack-form" id="speciality-form">
+              <h3>Add Speciality</h3>
+              <label class="field">
+                <span>New speciality</span>
+                <input id="speciality-name" type="text" placeholder="Orthopedic">
+              </label>
+              <button class="button button-primary" type="submit">Add Speciality</button>
+              <p class="feedback" id="speciality-message">Used by doctor onboarding and patient filters.</p>
+            </form>
+
+            <form class="stack-form" id="broadcast-form">
+              <h3>Broadcast Notification</h3>
+              <label class="field">
+                <span>Title</span>
+                <input id="broadcast-title" type="text" placeholder="Holiday schedule">
+              </label>
+              <label class="field">
+                <span>Message</span>
+                <textarea id="broadcast-message-text" rows="4" placeholder="Clinics will open after 10:00 AM on Sunday."></textarea>
+              </label>
+              <button class="button button-secondary" type="submit">Send Broadcast</button>
+              <p class="feedback" id="broadcast-feedback">Sends an in-app and email-style notification to all users.</p>
+            </form>
+          </article>
+        </div>
+
+        <div class="workspace-grid narrow-top">
+          <article class="card reveal">
+            <div class="section-head compact">
+              <div>
+                <p class="eyebrow">USER MANAGEMENT</p>
+                <h3>Verify or block doctors and inspect user profiles</h3>
+              </div>
+            </div>
+            <div class="stack-list" id="admin-user-list">
+              <p class="empty-state">Admin users list will appear here.</p>
+            </div>
+          </article>
+
+          <article class="card reveal">
+            <div class="section-head compact">
+              <div>
+                <p class="eyebrow">PAYMENTS</p>
+                <h3>Online and cash tracking</h3>
+              </div>
+            </div>
+            <div class="stack-list" id="admin-payment-list">
+              <p class="empty-state">Payment records will appear here.</p>
+            </div>
+          </article>
+        </div>
+
+        <article class="card reveal narrow-top">
+          <div class="section-head compact">
+            <div>
+              <p class="eyebrow">ALL APPOINTMENTS</p>
+              <h3>Global monitoring view</h3>
+            </div>
+          </div>
+          <div class="stack-list" id="admin-appointment-list">
+            <p class="empty-state">Appointments are available after admin login.</p>
+          </div>
+        </article>
+      </section>
+
+      <section class="workspace" id="docs">
+        <div class="section-head reveal">
+          <div>
+            <p class="eyebrow">API & ARCHITECTURE</p>
+            <h2>Backend route map and delivery notes</h2>
+          </div>
+        </div>
+
+        <div class="workspace-grid">
+          <article class="card reveal">
+            <div class="pill-wrap" id="speciality-pills"></div>
+            <div class="callout">
+              <p>
+                The MVP uses a Node HTTP server plus JSON persistence for quick local iteration. The domain model includes
+                users, doctor profiles, patient profiles, slots, appointments, reviews, payments, notifications, and activity logs.
+              </p>
+            </div>
+            <div class="stack-list" id="api-docs">
+              <p class="empty-state">Loading API documentation.</p>
+            </div>
+          </article>
+
+          <article class="card reveal">
+            <div class="section-head compact">
+              <div>
+                <p class="eyebrow">DELIVERABLES</p>
+                <h3>What this prototype covers from the PRD</h3>
+              </div>
+            </div>
+            <ul class="deliverables">
+              <li>Patient login, doctor search, booking, reschedule, cancel, history, reminders, and reviews.</li>
+              <li>Doctor profile management, slot creation, break marking, appointment dashboard, and patient history.</li>
+              <li>Admin verification, user monitoring, reports, payment tracking, speciality management, and broadcasts.</li>
+              <li>Documentation files for PRD alignment, database design, API surface, and deployment guidance.</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
